@@ -5,7 +5,6 @@ export default function PageProducts() {
   return (
     <Box py={3}>
       <Products />
-      <div></div>
     </Box>
   );
 }
