@@ -10,7 +10,12 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint --ignore-path .gitignore --fix src",
-    "prettier": "prettier src --write"
+    "prettier": "prettier src --write",
+    "build-cdk": "tsc && cdk synth --app 'npx ts-node cdk/bin/my-repo.ts'",
+    "deploy": "npm install --force && npm run build && cd cdk && npm install && npm run cdk-synth && npm run cdk-deploy",
+    "upload": "aws s3 sync ./dist/ s3://myrepostack-myrepobucketd1b7f7e4-bjk6gpvbslze --delete",
+    "invalidate": "aws cloudfront create-invalidation --distribution-id E123456ABCDEF --paths '/*'",
+    "destroy": "cdk destroy"
   },
   "dependencies": {
     "@emotion/react": "^11.9.3",
@@ -48,11 +53,5 @@
     "typescript": "^4.7.4",
     "vite": "^2.9.13",
     "vitest": "^0.17.1"
-  },
-  "msw": {
-    "workerDirectory": "public"
-  },
-  "engines": {
-    "node": ">=14.0.0"
   }
 }
